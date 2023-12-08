@@ -223,3 +223,4 @@ int main(){
     int arr[n];
     randomMassive(arr, n);
     sortedMassive(arr, n);
+}
