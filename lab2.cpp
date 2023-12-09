@@ -81,13 +81,18 @@ int binSearch(int arr[], int value, const int len) {
     }
     return -1;
 }
-
-void idz9(int arr[], int len, int num) {
+//Уменьшите каждый четный элемент на значение, введенное пользовате-лем. Каждый четный элемент умножьте на случайную величину в диапазоне от 1 до 9.
+// Выведите на экран сколько четных элементов, которые имеют четные значения, сколько нечетных элементов имеют нечетные значения.
+// Выведите количество элементов, которые нацело делятся на 1, 2, 3, 4, 5, 6, 7, 8, 9
+void idz5(int arr[], int len, int num) {
     for (int i = 1; i < len; i += 2) {
         if (i % 2) {
             arr[i] -= num;
             arr[i] *= rand() % 9 + 1;
         }
+    }
+    for (int i = 0; i < len; ++i) {
+        cout << " " << arr[i];
     }
     for (int j = 1; j < 10; ++j) {
         cout << "Элементы, кратные " << j << ": ";
@@ -140,22 +145,12 @@ void sortedMassive(int arr[], const int n){
     int a,b;
     int avg;
     int index;
-    int problem;
+    int idz;
     int low, mid = 0, high, l_border, r_border;
     int index1, index2;
     time_mngr start, end;
     nanoseconds result;
-    cout<<"----------------------------------------------------------------"<<"\n";
-    cout << "\n";
-    cout<< "Введите значение а, чтобы посмотреть количество элементов\n";
-    cout<< "в отсортированном массиве, которые МЕНЬШЕ этого числа :\n";
-    cin >> a;
-    cout<< "Введите значение b, чтобы посмотреть количество элементов\n";
-    cout<< "в отсортированном массиве, которые БОЛЬШЕ этого числа :\n";
-    cin >> b;
-    cout <<"";
-    cout << "Вводите индексы элементов(от 0 до 99), которые хотите поменять местами (Вводить попарно и через пробел):\n";
-    cin >> index1 >> index2;
+    cout<<"-------------------------------------------------------------------------------------------\n";
     //2 TASK
     start = steady_clock::now();
     quickSort(arr, 0, n - 1);
@@ -179,7 +174,7 @@ void sortedMassive(int arr[], const int n){
     cout << "Поиск max и min значений отсортированного массива занял " << result.count() << " наносекунд\n";
     //4 TASK
     avg = round((mx + mn) / 2.0);
-    cout << "Cреднее значение максимального и минимального значения :" << avg<< "\n";
+    cout << "\nCреднее значение максимального и минимального значения : " << avg<< "\n";
     if (binSearch(arr, avg, n) == -1) {
         cout << "Такого элемента нет в массиве";
     }
@@ -195,13 +190,17 @@ void sortedMassive(int arr[], const int n){
     }
     cout << "\n";
     //5 TASK
-    cin.sync();
-    cin.clear();
+    cout<< "\nВведите значение а, чтобы посмотреть количество элементов\n";
+    cout<< "в отсортированном массиве, которые МЕНЬШЕ этого числа :\n";
+    cin >> a;
     low = 0;
     high = n - 1;
     l_border = leftBorder(arr, a, low, mid, high);
     cout << l_border << " элементов, меньших " << a << "\n";
     //6 TASK
+    cout<< "\nВведите значение b, чтобы посмотреть количество элементов\n";
+    cout<< "в отсортированном массиве, которые БОЛЬШЕ этого числа :\n";
+    cin >> b;
     low = 0;
     high = n - 1;
     r_border = rightBorder(arr, b, low, mid, high);
@@ -213,27 +212,32 @@ void sortedMassive(int arr[], const int n){
     result = end - start;
     cout << "Обычный перебор прошел за " << result.count() << " наносекунд\n";
     start = steady_clock::now();
-    index = binSearch(arr, a, n);
+    index = binSearch(arr, b, n);
     end = steady_clock::now();
     result = end - start;
     if (index == -1) {
-        cout << "Числа " << a << " нет в массиве\n";
+        cout << "Числа " << b << " нет в массиве\n";
     }
     else {
         cout << "Число " << arr[index] << " находится под индексом " << index << "\n";
     }
     cout << "Бинарный поиск прошел за " << result.count() << " наносекунд\n";
     //8 TASK
-    while (index1 != -1 && index2 != -1) {
-        start = steady_clock::now();
-        swap(arr[index1], arr[index2]);
-        end = steady_clock::now();
-        cout << "Замена прошла за " << (end - start).count() << " наносекунд\n";
-        cin >> index1 >> index2;
-    }
+    cout << "\nВводите индексы элементов(от 0 до 99), которые хотите поменять местами (Вводить попарно и через пробел):\n";
+    cin >> index1 >> index2;
+    start = steady_clock::now();
+    swap(arr[index1], arr[index2]);
+    end = steady_clock::now();
+    cout << "Замена прошла за " << (end - start).count() << " наносекунд\n";
+
+    cout << "МАССИВ С ИЗМЕНЕННЫМИ ИНДЕКСАМИ:";
     for (int i = 0; i < n; ++i) {
-        arr[i] = rand() % 200 - 99;
+        cout << " " << arr[i];
     }
+    cout << "\n";
+    cout << "\nВведите число, на которое хотитете уменьшить каждый нечетный элемент: ";
+    cin >> idz;
+    idz5(arr, n, idz);
 }
 
 
